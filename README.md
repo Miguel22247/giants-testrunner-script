@@ -31,6 +31,10 @@ This PowerShell script executes the Test Runner for a Farming Simulator 22 mod.
      ```powershell
      .\execute_TestRunner.ps1 -modFolderPath "Path\to\mod\folder"
      ```
+     or
+     ```powershell
+     .\execute_TestRunner.ps1 "Path\to\mod\folder"
+     ```
 
    Replace `"Path\to\mod\folder"` with the actual path to your mod folder.
 
