@@ -50,7 +50,7 @@ if (-not $modFolderPath) {
         New-Item -Path $outputFolderPath -ItemType Directory | Out-Null
     }
 
-    Write-Host "Loading Giants TestRunner located on: $testRunnerPath, with GamePath: $gamePath, and output: $outputFolderPath for mod: $outPutFolderPath"
+    Write-Host "Loading Giants TestRunner located on: $testRunnerPath, with GamePath: $gamePath, and output: $outputFolderPath for mod: $modFolderPath"
 
     # Build the command
     $command = "$testRunnerPath $modFolderPath -g '$gamePath' --outputPath $outputFolderPath"
