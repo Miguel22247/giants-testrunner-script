@@ -22,6 +22,7 @@ This PowerShell script executes the Test Runner for a Farming Simulator 22 mod.
      - `$testRunnerPath`: Path where the Test Runner executable (`TestRunner_public.exe`) is installed.
      - `$gamePath`: Path where Farming Simulator 22 is installed.
      - `$outputBasePath`: Base output folder where the results will be stored.
+     - `$giantsEditorPath` : Path where Giants Editor is Installed (Coming Soon)
 
 4. **Run the Script:**
    - Open PowerShell.

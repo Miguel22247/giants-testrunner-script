@@ -29,6 +29,9 @@ $gamePath = "D:\SteamLibrary\steamapps\common\Farming Simulator 22"
 # Define the base output folder
 $outputBasePath = "D:\testingmods\testRunnerOutput"
 
+# Define the Giants Editor Path
+$giantsEditorPath = ""
+
 # Check if the mod folder path is provided
 if (-not $modFolderPath) {
     Write-Host "Please provide the path to the mod folder."
