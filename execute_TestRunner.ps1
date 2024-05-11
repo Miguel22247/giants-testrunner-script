@@ -30,7 +30,7 @@ $gamePath = "D:\SteamLibrary\steamapps\common\Farming Simulator 22"
 $outputBasePath = "D:\testingmods\testRunnerOutput"
 
 # Define the Giants Editor Path (In case it's added in future versions)
-$giantsEditorPath = ""
+$giantsEditorPath = "D:\GIANTS_Editor_9.0.6_64-bit\editor.exe"
 
 # Check if the mod folder path is provided
 if (-not $modFolderPath) {
@@ -56,7 +56,7 @@ if (-not $modFolderPath) {
     Write-Host "Loading Giants TestRunner located on: $testRunnerPath, with GamePath: $gamePath, and output: $outputFolderPath for mod: $modFolderPath"
 
     # Build the command
-    $command = "$testRunnerPath $modFolderPath -g '$gamePath' --outputPath $outputFolderPath"
+    $command = "$testRunnerPath $modFolderPath -e '$giantsEditorPath' -g '$gamePath' --outputPath $outputFolderPath"
 
     # Execute the command
     Invoke-Expression -Command $command
