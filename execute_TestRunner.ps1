@@ -20,16 +20,16 @@ param (
     [string]$modFolderPath
 )
 
-# Define the path where the TestRunner is installed
+# Define the path where the TestRunner is installed (mandatory)
 $testRunnerPath = "D:\testingmods\TestRunner_public.exe"
 
-# Define the path where Farming Simulator 22 is installed
+# Define the path where Farming Simulator 22 is installed (optional)
 $gamePath = "D:\SteamLibrary\steamapps\common\Farming Simulator 22"
 
-# Define the base output folder
+# Define the base output folder (optional I think)
 $outputBasePath = "D:\testingmods\testRunnerOutput"
 
-# Define the Giants Editor Path (In case it's added in future versions)
+# Define the Giants Editor Path (optional)
 $giantsEditorPath = "D:\GIANTS_Editor_9.0.6_64-bit\editor.exe"
 
 # Check if the mod folder path is provided
