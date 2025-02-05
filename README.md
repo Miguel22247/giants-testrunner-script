@@ -1,4 +1,4 @@
-# Farming Simulator 22 Test Runner Script
+# Farming Simulator Test Runner Script
 
 This PowerShell script executes the Test Runner for a Farming Simulator 22 mod.
 
@@ -7,7 +7,7 @@ This PowerShell script executes the Test Runner for a Farming Simulator 22 mod.
 - PowerShell 3.0 or later
 - Giants TestRunner Tool [Download Here](https://gdn.giants-software.com/index.php)
 - Giants Editor [Download Here](https://gdn.giants-software.com/index.php)
-- Farming Simulator 2022 [Buy it here](https://www.farming-simulator.com/buy-now.php?platform=pcdigital&code=MIGUELATOR)
+- Farming Simulator [Buy it here](https://www.farming-simulator.com/buy-now.php?platform=pcdigital&code=MIGUELATOR)
 
 ## Usage
 
