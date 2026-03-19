@@ -22,13 +22,13 @@ param (
 # Define the path where the TestRunner is installed (Mandatory)
 $testRunnerPath = ""
 
-# Define the path where Farming Simulator is installed (Mandatory)
-$gamePath = ""
-
 # Define the base output folder (Mandatory)
 $outputBasePath = ""
 
-# Define the Giants Editor Path (Mandatory)
+# Define the path where Farming Simulator is installed (Optional, but recommended for better results)
+$gamePath = ""
+
+# Define the Giants Editor Path (Optional, but recommended for better results)
 $giantsEditorPath = ""
 
 # Check if the mod folder path is provided
@@ -49,7 +49,7 @@ if (-not (Test-Path -Path $modOutputFolderPath -PathType Container)) {
 }
 
 # Generate a timestamp for the current run
-$timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
+$timestamp = Get-Date -Format "dd-MM-yyyy_HH-mm-ss"
 
 # Create a new run folder with a unique run number and timestamp
 $counter = 1
@@ -69,6 +69,16 @@ Write-Host "Output Path: $runFolderPath"
 
 # Build the command to execute the test runner
 $command = "$testRunnerPath $modFolderPath -e '$giantsEditorPath' -g '$gamePath' --outputPath $runFolderPath"
+
+# This part of the script is checking if any of the variables ``, ``, or
+# `` are not provided (empty). If any of these variables are empty, it constructs a
+# simplified command without the game path and Giants Editor path, using only the test runner path,
+# mod folder path, and output path.
+if (-not $gamePath -or -not $outputBasePath -or -not $giantsEditorPath) {
+    "$testRunnerPath $modFolderPath --outputPath $runFolderPath"
+} else {
+    $command
+}
 
 # Execute the command
 Invoke-Expression -Command $command
