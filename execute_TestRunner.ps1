@@ -87,10 +87,8 @@ if (-not $gamePath -or -not $outputBasePath -or -not $giantsEditorPath) {
         $runFolderPath
     )
 }
-
 # Optionally display the exact command being executed
 $argumentString = $arguments | ForEach-Object { '"{0}"' -f $_ } | Out-String
 Write-Host "Executing: `"$testRunnerPath`" $argumentString"
-
 # Execute the command using the call operator with an argument array
 & $testRunnerPath @arguments
