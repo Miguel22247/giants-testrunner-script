@@ -49,7 +49,7 @@ if (-not (Test-Path -Path $modOutputFolderPath -PathType Container)) {
 }
 
 # Generate a timestamp for the current run
-$timestamp = Get-Date -Format "dd-MM-yyyy_HH-mm-ss"
+$timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
 
 # Create a new run folder with a unique run number and timestamp
 $counter = 1
