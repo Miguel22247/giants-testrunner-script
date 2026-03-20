@@ -43,6 +43,13 @@ if (-not $testRunnerPath) {
     exit 1
 }
 
+if (-not (Test-Path -Path $testRunnerPath -PathType Leaf)) {
+    Write-Host "Error: `$testRunnerPath '$testRunnerPath' does not point to an existing file. Please verify the path to the TestRunner executable."
+    exit
+}
+
+# Resolve the test runner path to a fully qualified path
+$testRunnerPath = (Resolve-Path -Path $testRunnerPath).ProviderPath
 if (-not $outputBasePath) {
     Write-Host "Error: `$outputBasePath is not set. Please configure the base output folder path."
     exit 1
