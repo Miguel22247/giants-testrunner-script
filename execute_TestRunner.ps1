@@ -67,18 +67,30 @@ Write-Host "Using GamePath: $gamePath"
 Write-Host "Mod Folder: $modFolderPath"
 Write-Host "Output Path: $runFolderPath"
 
-# Build the command to execute the test runner
-$command = "$testRunnerPath $modFolderPath -e '$giantsEditorPath' -g '$gamePath' --outputPath $runFolderPath"
-
-# This part of the script is checking if any of the variables `$gamePath`, `$outputBasePath`, or
-# `$giantsEditorPath` are not provided (empty). If any of these variables are empty, it constructs a
-# simplified command without the game path and Giants Editor path, using only the test runner path,
-# mod folder path, and output path.
+# Build the arguments to execute the test runner
 if (-not $gamePath -or -not $outputBasePath -or -not $giantsEditorPath) {
-    "$testRunnerPath $modFolderPath --outputPath $runFolderPath"
+    # Simplified command without game path and Giants Editor path
+    $arguments = @(
+        $modFolderPath
+        "--outputPath"
+        $runFolderPath
+    )
 } else {
-    $command
+    # Full command including Giants Editor and game paths
+    $arguments = @(
+        $modFolderPath
+        "-e"
+        $giantsEditorPath
+        "-g"
+        $gamePath
+        "--outputPath"
+        $runFolderPath
+    )
 }
 
-# Execute the command
-Invoke-Expression -Command $command
+# Optionally display the exact command being executed
+$argumentString = $arguments | ForEach-Object { '"{0}"' -f $_ } | Out-String
+Write-Host "Executing: `"$testRunnerPath`" $argumentString"
+
+# Execute the command using the call operator with an argument array
+& $testRunnerPath @arguments
