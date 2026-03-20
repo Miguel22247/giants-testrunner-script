@@ -70,8 +70,8 @@ Write-Host "Output Path: $runFolderPath"
 # Build the command to execute the test runner
 $command = "$testRunnerPath $modFolderPath -e '$giantsEditorPath' -g '$gamePath' --outputPath $runFolderPath"
 
-# This part of the script is checking if any of the variables ``, ``, or
-# `` are not provided (empty). If any of these variables are empty, it constructs a
+# This part of the script is checking if any of the variables `$gamePath`, `$outputBasePath`, or
+# `$giantsEditorPath` are not provided (empty). If any of these variables are empty, it constructs a
 # simplified command without the game path and Giants Editor path, using only the test runner path,
 # mod folder path, and output path.
 if (-not $gamePath -or -not $outputBasePath -or -not $giantsEditorPath) {
