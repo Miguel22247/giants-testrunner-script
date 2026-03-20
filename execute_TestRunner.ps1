@@ -22,21 +22,43 @@ param (
 # Define the path where the TestRunner is installed (Mandatory)
 $testRunnerPath = ""
 
-# Define the path where Farming Simulator is installed (Mandatory)
-$gamePath = ""
-
 # Define the base output folder (Mandatory)
 $outputBasePath = ""
 
-# Define the Giants Editor Path (Mandatory)
+# Define the path where Farming Simulator is installed (Optional, but recommended for better results)
+$gamePath = ""
+
+# Define the Giants Editor Path (Optional, but recommended for better results)
 $giantsEditorPath = ""
 
 # Check if the mod folder path is provided
 if (-not $modFolderPath) {
     Write-Host "Please provide the path to the mod folder."
+    exit 1
+}
+
+# Validate mandatory paths
+if (-not $testRunnerPath) {
+    Write-Host "Error: `$testRunnerPath is not set. Please configure the path to the TestRunner executable."
+    exit 1
+}
+
+if (-not (Test-Path -Path $testRunnerPath -PathType Leaf)) {
+    Write-Host "Error: `$testRunnerPath '$testRunnerPath' does not point to an existing file. Please verify the path to the TestRunner executable."
     exit
 }
 
+# Resolve the test runner path to a fully qualified path
+$testRunnerPath = (Resolve-Path -Path $testRunnerPath).ProviderPath
+if (-not $outputBasePath) {
+    Write-Host "Error: `$outputBasePath is not set. Please configure the base output folder path."
+    exit 1
+}
+
+if (-not (Test-Path -Path $outputBasePath -PathType Container)) {
+    Write-Host "Error: The base output folder path '$outputBasePath' does not exist or is not a directory. Please create it or specify a valid folder path."
+    exit
+}
 # Extract the mod name from the provided mod folder path
 $modName = $modFolderPath | Split-Path -Leaf
 
@@ -67,8 +89,24 @@ Write-Host "Using GamePath: $gamePath"
 Write-Host "Mod Folder: $modFolderPath"
 Write-Host "Output Path: $runFolderPath"
 
-# Build the command to execute the test runner
-$command = "$testRunnerPath $modFolderPath -e '$giantsEditorPath' -g '$gamePath' --outputPath $runFolderPath"
+# Build the arguments to execute the test runner
+$arguments = @($modFolderPath)
 
-# Execute the command
-Invoke-Expression -Command $command
+if ($giantsEditorPath) {
+    $arguments += "-e"
+    $arguments += $giantsEditorPath
+}
+
+if ($gamePath) {
+    $arguments += "-g"
+    $arguments += $gamePath
+}
+
+$arguments += "--outputPath"
+$arguments += $runFolderPath
+
+# Optionally display the exact command being executed
+$argumentString = ($arguments | ForEach-Object { '"{0}"' -f $_ }) -join ' '
+Write-Host "Executing: `"$testRunnerPath`" $argumentString"
+# Execute the command using the call operator with an argument array
+& $testRunnerPath @arguments
