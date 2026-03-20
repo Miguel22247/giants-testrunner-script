@@ -34,18 +34,18 @@ $giantsEditorPath = ""
 # Check if the mod folder path is provided
 if (-not $modFolderPath) {
     Write-Host "Please provide the path to the mod folder."
-    exit
+    exit 1
 }
 
 # Validate mandatory paths
 if (-not $testRunnerPath) {
     Write-Host "Error: `$testRunnerPath is not set. Please configure the path to the TestRunner executable."
-    exit
+    exit 1
 }
 
 if (-not $outputBasePath) {
     Write-Host "Error: `$outputBasePath is not set. Please configure the base output folder path."
-    exit
+    exit 1
 }
 
 # Extract the mod name from the provided mod folder path
