@@ -55,6 +55,10 @@ if (-not $outputBasePath) {
     exit 1
 }
 
+if (-not (Test-Path -Path $outputBasePath -PathType Container)) {
+    Write-Host "Error: The base output folder path '$outputBasePath' does not exist or is not a directory. Please create it or specify a valid folder path."
+    exit
+}
 # Extract the mod name from the provided mod folder path
 $modName = $modFolderPath | Split-Path -Leaf
 
