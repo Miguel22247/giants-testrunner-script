@@ -37,6 +37,17 @@ if (-not $modFolderPath) {
     exit
 }
 
+# Validate mandatory paths
+if (-not $testRunnerPath) {
+    Write-Host "Error: `$testRunnerPath is not set. Please configure the path to the TestRunner executable."
+    exit
+}
+
+if (-not $outputBasePath) {
+    Write-Host "Error: `$outputBasePath is not set. Please configure the base output folder path."
+    exit
+}
+
 # Extract the mod name from the provided mod folder path
 $modName = $modFolderPath | Split-Path -Leaf
 
@@ -68,27 +79,23 @@ Write-Host "Mod Folder: $modFolderPath"
 Write-Host "Output Path: $runFolderPath"
 
 # Build the arguments to execute the test runner
-if (-not $gamePath -or -not $outputBasePath -or -not $giantsEditorPath) {
-    # Simplified command without game path and Giants Editor path
-    $arguments = @(
-        $modFolderPath
-        "--outputPath"
-        $runFolderPath
-    )
-} else {
-    # Full command including Giants Editor and game paths
-    $arguments = @(
-        $modFolderPath
-        "-e"
-        $giantsEditorPath
-        "-g"
-        $gamePath
-        "--outputPath"
-        $runFolderPath
-    )
+$arguments = @($modFolderPath)
+
+if ($giantsEditorPath) {
+    $arguments += "-e"
+    $arguments += $giantsEditorPath
 }
+
+if ($gamePath) {
+    $arguments += "-g"
+    $arguments += $gamePath
+}
+
+$arguments += "--outputPath"
+$arguments += $runFolderPath
+
 # Optionally display the exact command being executed
-$argumentString = $arguments | ForEach-Object { '"{0}"' -f $_ } | Out-String
+$argumentString = ($arguments | ForEach-Object { '"{0}"' -f $_ }) -join ' '
 Write-Host "Executing: `"$testRunnerPath`" $argumentString"
 # Execute the command using the call operator with an argument array
 & $testRunnerPath @arguments
