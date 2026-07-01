@@ -1,51 +1,76 @@
 # Farming Simulator Test Runner Script
 
-This PowerShell script executes the Test Runner for a Farming Simulator 22 mod.
+This PowerShell script runs the GIANTS TestRunner against a Farming Simulator mod folder and stores each run in its own timestamped output directory.
 
 ## Requirements
 
 - PowerShell 3.0 or later
-- Giants TestRunner Tool [Download Here](https://gdn.giants-software.com/index.php)
-- Giants Editor [Download Here](https://gdn.giants-software.com/index.php)
+- GIANTS TestRunner Tool [Download Here](https://gdn.giants-software.com/index.php)
+- GIANTS Editor [Download Here](https://gdn.giants-software.com/index.php)
 - Farming Simulator [Buy it here](https://www.farming-simulator.com/buy-now.php?platform=pcdigital&code=MIGUELATOR)
+
+## What This Script Does
+
+- Accepts a mod folder path as the only required argument.
+- Validates that the TestRunner executable and output base folder are configured correctly.
+- Uses the configured GIANTS Editor and game path only when they are provided.
+- Creates a unique output folder for every run using the mod name, a run number, and a timestamp.
+- Prints the resolved paths and the final command before launching the TestRunner.
+
+## Configuration
+
+Open `execute_TestRunner.ps1` and set the following values before running the script:
+
+- `$testRunnerPath`: Path to `TestRunner_public.exe`
+- `$outputBasePath`: Base folder where mod test results will be stored
+- `$gamePath`: Path to Farming Simulator 22 installation, if you want to pass it to the TestRunner
+- `$giantsEditorPath`: Path to GIANTS Editor, if you want to pass it to the TestRunner
+
+If a value is left empty, the script skips that optional argument.
 
 ## Usage
 
-1. **Download Script:**
-   - Download the `execute_TestRunner.ps1` file to your computer.
+1. Download `execute_TestRunner.ps1` to your computer.
+2. Make sure PowerShell 3.0 or later is installed.
+3. Update the configuration values in the script.
+4. Run the script from PowerShell and provide the path to your mod folder:
 
-2. **Prerequisites:**
-   - Ensure you have PowerShell 3.0 or later installed on your system.
+```powershell
+.\execute_TestRunner.ps1 -modFolderPath "Path\to\mod\folder"
+```
 
-3. **Setup:**
-   - Define the following paths in the script:
-     - `$testRunnerPath`: Path where the Test Runner executable (`TestRunner_public.exe`) is installed.
-     - `$gamePath`: Path where Farming Simulator 22 is installed.
-     - `$outputBasePath`: Base output folder where the results will be stored.
-     - `$giantsEditorPath` : Path where Giants Editor is Installed
+You can also pass the mod folder positionally:
 
-4. **Run the Script:**
-   - Open PowerShell.
-   - Navigate to the directory where `execute_TestRunner.ps1` is located.
-   - Run the script by providing the path to the mod folder as an argument:
+```powershell
+.\execute_TestRunner.ps1 "Path\to\mod\folder"
+```
 
-     ```powershell
-     .\execute_TestRunner.ps1 -modFolderPath "Path\to\mod\folder"
-     ```
-     or
-     ```powershell
-     .\execute_TestRunner.ps1 "Path\to\mod\folder"
-     ```
+Replace `Path\to\mod\folder` with the actual location of your mod.
 
-   Replace `"Path\to\mod\folder"` with the actual path to your mod folder.
+## Output
 
-5. **Output:**
-   - The script will create a new folder inside the `$outputBasePath` with the name of the mod folder followed by "_Output" (or "_Output_X" if conflicts arise).
-   - The Test Runner will generate its output in this folder.
+Each run is written to a folder inside `$outputBasePath` using this structure:
+
+`<mod name>\Test_<run number>_<timestamp>`
+
+For example, a mod named `MyMod` might produce:
+
+`MyMod\Test_1_2026-07-01_14-30-00`
+
+If the folder already exists, the script keeps incrementing the run number until it finds a free name.
+
+## Example Flow
+
+1. You point the script at a mod folder.
+2. The script extracts the mod name from that folder.
+3. The script creates a unique output folder for the run.
+4. The script launches the TestRunner with the selected paths.
+5. The generated report appears in the new output folder.
 
 ## Notes
 
-- This script uses PowerShell to execute the Test Runner command with the specified parameters.
-- Ensure that the paths to `TestRunner_public.exe`, the game folder, and the output base folder are correctly defined in the script.
+- The script is designed to be edited once and reused for multiple mods.
+- Paths to the TestRunner executable and output base folder are mandatory.
+- GIANTS Editor and Farming Simulator paths are optional but recommended for better results.
 - Exercise caution when running scripts from untrusted sources.
-- For issues or suggestions, please contact [Miguel Pacheco](mailto:minipachru@gmail.com) or create an issue on the Repository.
+- For issues or suggestions, please contact [Miguel Pacheco](mailto:minipachru@gmail.com) or create an issue on the repository.
