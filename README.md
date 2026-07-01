@@ -23,7 +23,7 @@ Open `execute_TestRunner.ps1` and set the following values before running the sc
 
 - `$testRunnerPath`: Path to `TestRunner_public.exe`
 - `$outputBasePath`: Base folder where mod test results will be stored
-- `$gamePath`: Path to Farming Simulator 22 installation, if you want to pass it to the TestRunner
+- `$gamePath`: Path to Farming Simulator installation, if you want to pass it to the TestRunner
 - `$giantsEditorPath`: Path to GIANTS Editor, if you want to pass it to the TestRunner
 
 If a value is left empty, the script skips that optional argument.
